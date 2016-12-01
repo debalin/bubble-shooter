@@ -63,6 +63,16 @@ public class Player extends MovingRectangle {
 
   @Override
   public void draw() {
+    group = engine.createShape(PApplet.GROUP);
+    base = engine.createShape(PApplet.ELLIPSE, 0, 0, Constants.PLAYER_SIZE.x, Constants.PLAYER_SIZE.y);
+    base.setFill(engine.color(color.x, color.y, color.z, 255));
+    base.setStroke(engine.color(255, 0));
+    turret = engine.createShape(PApplet.RECT, - Constants.PLAYER_TURRET_SIZE.x / 2, -Constants.PLAYER_TURRET_SIZE.y, Constants.PLAYER_TURRET_SIZE.x, Constants.PLAYER_TURRET_SIZE.y);
+    turret.setFill(engine.color(Constants.PLAYER_TURRET_COLOR.x, Constants.PLAYER_TURRET_COLOR.y, Constants.PLAYER_TURRET_COLOR.z, 255));
+    turret.setStroke(engine.color(255, 0));
+    group.addChild(base);
+    group.addChild(turret);
+
     engine.pushMatrix();
 
     engine.noStroke();
@@ -118,6 +128,10 @@ public class Player extends MovingRectangle {
         break;
     }
     return color;
+  }
+
+  public void changeColor(float x, float y, float z) {
+    this.color.set(x, y, z);
   }
 
 }

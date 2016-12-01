@@ -276,12 +276,13 @@ public class MainEngine extends PApplet {
 
     String instructions = "MOUSE: Move Turret";
     instructions += "\nSPACE: Fire";
+    instructions += "\nT: Toggle Script";
 
     pushMatrix();
     textFont(instructionsFont);
     noStroke();
     fill(255, 255, 255);
-    text(instructions, clientResolution.x - 205, clientResolution.y - 90);
+    text(instructions, clientResolution.x - 205, clientResolution.y - 100);
     popMatrix();
 
     for (TextRenderer textRenderer : textRenderers) {

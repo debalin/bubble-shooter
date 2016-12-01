@@ -6,6 +6,7 @@ import com.debalin.characters.SpawnPoint;
 import com.debalin.engine.MainEngine;
 import com.debalin.engine.events.Event;
 import com.debalin.engine.events.EventHandler;
+import com.debalin.engine.scripting.ScriptManager;
 import com.debalin.util.Constants;
 import processing.core.PVector;
 
@@ -49,6 +50,21 @@ public class GameEventHandler implements EventHandler {
         break;
       case "BUBBLE_HIT":
         handleEnemyHit(event);
+        break;
+      case "SCRIPT":
+        handleScripts(event);
+        break;
+    }
+  }
+
+  private void handleScripts(Event event) {
+    List<Object> eventParameters = event.getEventParameters();
+    String scriptFunctionName = (String) eventParameters.get(0);
+
+    if (scriptFunctionName.equals(bubbleShooterManager.engine.scriptFunctionName)) {
+      bubbleShooterManager.engine.bindScriptObjects();
+      ScriptManager.loadScript(bubbleShooterManager.engine.scriptPath);
+      ScriptManager.executeScript(bubbleShooterManager.engine.scriptFunctionName);
     }
   }
 
