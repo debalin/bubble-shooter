@@ -197,7 +197,6 @@ public class BubbleShooterManager extends Controller implements TextRenderer {
     removeGameObjects();
     if (checkAllEnemiesDeath() && bubblesObjectID != -1) {
       reset();
-      player.deaths--;
     }
   }
 
@@ -242,7 +241,6 @@ public class BubbleShooterManager extends Controller implements TextRenderer {
     bubbleMap.clear();
     bubbles.clear();
     spawnBubbles();
-    player.regenerate();
   }
 
 }

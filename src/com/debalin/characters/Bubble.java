@@ -56,8 +56,8 @@ public class Bubble extends MovingRectangle {
         break;
       case FIRED:
         position.add(velocity);
-        checkCollision();
-        checkBounds();
+        if (!checkCollision())
+          checkBounds();
         break;
       case CHECK:
         checkNeighbors();
@@ -113,7 +113,9 @@ public class Bubble extends MovingRectangle {
     }
   }
 
-  public void checkCollision() {
+  public boolean checkCollision() {
+    boolean collided = false;
+
     Iterator it = bubbleMap.entrySet().iterator();
     while(it.hasNext()) {
       Map.Entry<Integer, Bubble> pair = (Map.Entry) it.next();
@@ -136,18 +138,29 @@ public class Bubble extends MovingRectangle {
         this.velocity.set(Constants.BUBBLE_MAX_VEL_INIT);
         bubbleMap.put(bubbleID, this);
         state = BubbleStates.CHECK;
+        collided = true;
         break;
       }
     }
+
+    return collided;
   }
 
   public void checkBounds() {
-
+    if (position.x > Constants.CLIENT_RESOLUTION.x - Constants.BUBBLE_PADDING) {
+      setVisible(false);
+    }
+    else if (position.x < Constants.BUBBLE_PADDING) {
+      setVisible(false);
+    }
   }
 
   public void checkWin() {
-    if (position.y + velocity.y + Constants.BUBBLE_DIAMETER.y / 2 > Constants.CLIENT_RESOLUTION.y - Constants.BUBBLE_PADDING) {
-
+    if (position.y + Constants.BUBBLE_DIAMETER.y / 2 > Constants.BOUNDARY_POSITION.y) {
+      bubbleShooterManager.player.deaths++;
+      bubbleShooterManager.reset();
+      engine.delay(3000);
+      setVisible(false);
     }
   }
 
@@ -160,9 +173,5 @@ public class Bubble extends MovingRectangle {
     engine.ellipse(position.x, position.y, size.x, size.y);
 
     engine.popMatrix();
-  }
-
-  public int getBubbleID() {
-    return bubbleID;
   }
 }

@@ -28,16 +28,19 @@ public class Constants {
   public static final PVector BUBBLE_MATCHED_COLOR = new PVector(244, 232, 66);
   public static final PVector BUBBLE_DIAMETER = new PVector(25, 25);
   public static final float BUBBLE_PADDING = 25;
-  public static int BUBBLE_MOVE_INTERVAL = 480;
+  public static int BUBBLE_MOVE_INTERVAL = 360;
 
   public enum BUBBLE_TYPES {
     INIT, FIRE
   }
 
+  public static final PVector BOUNDARY_POSITION = new PVector(BUBBLE_PADDING, PLAYER_SPAWN.y - 100);
+  public static final PVector BOUNDARY_SIZE = new PVector(CLIENT_RESOLUTION.x - 2 * BUBBLE_PADDING, 3);
+
   public static final int SERVER_PORT = 5678;
   public static final String SERVER_ADDRESS = "localhost";
 
-  public static final PVector SCORE_POSITION = new PVector(40, Constants.CLIENT_RESOLUTION.y - 110);
+  public static final PVector SCORE_POSITION = new PVector(40, Constants.CLIENT_RESOLUTION.y - 90);
 
   public enum EVENT_TYPES {
     PLAYER_DEATH, BUBBLE_SPAWN, PLAYER_SPAWN, PLAYER_FIRE, NULL, SCRIPT

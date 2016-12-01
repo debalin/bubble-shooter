@@ -48,12 +48,6 @@ public class Player extends MovingRectangle {
     moveTurret();
   }
 
-  public void regenerate() {
-    System.out.println("Player is regenerating.");
-    position = spawnPoint.getPosition().copy();
-    deaths++;
-  }
-
   private void moveTurret() {
     orientation = (float) Math.atan2(engine.mouseY - position.y, engine.mouseX - position.x);
   }
@@ -75,6 +69,11 @@ public class Player extends MovingRectangle {
     group.rotate(orientation + (float)(Math.PI / 2));
     engine.shape(group, position.x, position.y);
     group.resetMatrix();
+    engine.popMatrix();
+
+    engine.pushMatrix();
+    engine.fill(200, 0, 0);
+    engine.rect(Constants.BOUNDARY_POSITION.x, Constants.BOUNDARY_POSITION.y, Constants.BOUNDARY_SIZE.x, Constants.BOUNDARY_SIZE.y);
     engine.popMatrix();
 
     for (int i = 0; i <= firingColors.size() - 1; i++) {
